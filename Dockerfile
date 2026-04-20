@@ -29,6 +29,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # Install Oh My Zsh
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+RUN set -eux; \
+    if ! grep -qxF 'ZSH_COMPDUMP=$HOME/.zcompdump' /root/.zshrc; then \
+        sed -i '1i ZSH_COMPDUMP=$HOME/.zcompdump' /root/.zshrc; \
+    fi; \
+    rm -f /root/.zcompdump-*
 ENV SHELL=/bin/zsh
 
 # Back to bash
