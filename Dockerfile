@@ -135,12 +135,19 @@ RUN set -ex; \
     rm -rf "$MISE_TMP_DIR"
 # https://mise.jdx.dev/dev-tools/shims.html#how-to-add-mise-shims-to-path
 RUN set -eux; \
-    # non-interactive sessions
+    # bash
+    touch /root/.bash_profile /root/.bashrc; \
+    if ! grep -qxF 'eval "$(mise activate bash --shims)"' /root/.bash_profile; then \
+        printf '%s\n' 'eval "$(mise activate bash --shims)"' >> /root/.bash_profile; \
+    fi; \
+    if ! grep -qxF 'eval "$(mise activate bash)"' /root/.bashrc; then \
+        printf '%s\n' 'eval "$(mise activate bash)"' >> /root/.bashrc; \
+    fi; \
+    # zsh
     touch /root/.zprofile /root/.zshrc; \
     if ! grep -qxF 'eval "$(mise activate zsh --shims)"' /root/.zprofile; then \
         printf '%s\n' 'eval "$(mise activate zsh --shims)"' >> /root/.zprofile; \
     fi; \
-    # interactive sessions
     if ! grep -qxF 'eval "$(mise activate zsh)"' /root/.zshrc; then \
         printf '%s\n' 'eval "$(mise activate zsh)"' >> /root/.zshrc; \
     fi
