@@ -107,7 +107,7 @@ RUN set -ex; \
     && rm -rf "$OPENCODE_TMP_DIR"
 
 # Install mise
-ARG MISE_VERSION=v2026.4.15
+ARG MISE_VERSION=2026.4.18
 ENV MISE_INSTALL_PATH=/usr/local/bin/mise
 RUN set -ex; \
     # Determine arch
@@ -127,7 +127,7 @@ RUN set -ex; \
             exit 1 ;; \
     esac; \
     # Install
-    MISE_URL="https://github.com/jdx/mise/releases/download/${MISE_VERSION}/mise-${MISE_VERSION}-linux-${MISE_ARCH}"; \
+    MISE_URL="https://github.com/jdx/mise/releases/download/v${MISE_VERSION}/mise-v${MISE_VERSION}-linux-${MISE_ARCH}"; \
     MISE_TMP_DIR="$(mktemp -d)"; \
     echo "Installing mise for $OS_ARCH (Target: $MISE_ARCH) from $MISE_URL"; \
     curl -fsSL "$MISE_URL" -o "$MISE_TMP_DIR/mise"; \
