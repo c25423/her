@@ -40,7 +40,7 @@ ENV SHELL=/bin/zsh
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Install Codex CLI
-ARG CODEX_VERSION=0.121.0
+ARG CODEX_VERSION=0.122.0
 ENV CODEX_INSTALL_PATH=/usr/local/bin/codex
 RUN apt-get update && apt-get install -y --no-install-recommends \
     bubblewrap \
