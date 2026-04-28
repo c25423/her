@@ -27,6 +27,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     yq \
     # Required by Codex
     bubblewrap \
+    # Required by Hermes
+    ffmpeg \
+    gcc \
+    libffi-dev \
+    procps \
+    tini \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Oh My Zsh
@@ -122,6 +128,41 @@ RUN mise use -g usage@"$USAGE_VERSION"
 # Install uv
 ARG UV_VERSION=0.11.7
 RUN mise use -g uv@"$UV_VERSION"
+
+# Install Hermes
+ARG HERMES_REF=v2026.4.23
+ARG HERMES_COMMIT=bf196a3fc0fd1f79353369e8732051db275c6276
+ENV HERMES_HOME=/root/.hermes
+ENV PLAYWRIGHT_BROWSERS_PATH=/opt/playwright
+ENV HERMES_WEB_DIST=/opt/hermes/src/hermes_cli/web_dist
+RUN mkdir -p \
+    /opt/hermes \
+    /opt/playwright \
+    "$HERMES_HOME"
+WORKDIR /opt/hermes
+RUN git clone --depth 1 --branch "${HERMES_REF}" https://github.com/NousResearch/hermes-agent.git src && \
+    test "$(git -C src rev-parse HEAD)" = "${HERMES_COMMIT}"
+RUN cd /opt/hermes/src && \
+    npx playwright install --with-deps chromium
+RUN cd /opt/hermes/src && \
+    npm install
+RUN cd /opt/hermes/src/ui-tui && \
+    npm install && \
+    npm run build
+RUN cd /opt/hermes/src/web && \
+    npm install && \
+    npm run build
+RUN npm cache clean --force
+RUN cd /opt/hermes/src && \
+    uv venv /opt/hermes/venv --python "$(command -v python)" && \
+    VIRTUAL_ENV=/opt/hermes/venv uv pip install ".[all]"
+RUN mkdir -p \
+    "$HERMES_HOME/cron" \
+    "$HERMES_HOME/sessions" \
+    "$HERMES_HOME/logs" \
+    "$HERMES_HOME/memories" \
+    "$HERMES_HOME/skills"
+ENV PATH="/opt/hermes/venv/bin:/root/.local/share/mise/shims:${PATH}"
 
 WORKDIR /root
 
