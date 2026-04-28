@@ -39,73 +39,6 @@ ENV SHELL=/bin/zsh
 # Back to bash
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-# Install Codex CLI
-ARG CODEX_VERSION=0.122.0
-ENV CODEX_INSTALL_PATH=/usr/local/bin/codex
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    bubblewrap \
-    && rm -rf /var/lib/apt/lists/*
-RUN set -ex; \
-    # Determine arch
-    if [ -n "$TARGETARCH" ]; then \
-        OS_ARCH="$TARGETARCH"; \
-    else \
-        OS_ARCH=$(uname -m); \
-    fi; \
-    \
-    # Map arch
-    case "$OS_ARCH" in \
-        amd64|x86_64) \
-            CODEX_ARCH="x86_64" ;; \
-        arm64|aarch64) \
-            CODEX_ARCH="aarch64" ;; \
-        *) \
-            echo "ERROR: Unsupported architecture: $OS_ARCH."; \
-            exit 1 ;; \
-    esac; \
-    \
-    # Install
-    CODEX_URL="https://github.com/openai/codex/releases/download/rust-v${CODEX_VERSION}/codex-${CODEX_ARCH}-unknown-linux-musl.tar.gz"; \
-    CODEX_BINARY="codex-${CODEX_ARCH}-unknown-linux-musl"; \
-    CODEX_TMP_DIR="$(mktemp -d)"; \
-    echo "Installing Codex CLI for $OS_ARCH (Target: $CODEX_ARCH) from $CODEX_URL"; \
-    curl -fsSL "$CODEX_URL" -o "$CODEX_TMP_DIR/codex.tar.gz" \
-    && tar -xzf "$CODEX_TMP_DIR/codex.tar.gz" -C "$CODEX_TMP_DIR" \
-    && install -m 0755 "$CODEX_TMP_DIR/$CODEX_BINARY" "$CODEX_INSTALL_PATH" \
-    && rm -rf "$CODEX_TMP_DIR"
-
-# Install OpenCode
-ARG OPENCODE_VERSION=1.14.28
-ARG OPENCODE_INSTALL_PATH=/usr/local/bin/opencode
-RUN set -ex; \
-    # Determine arch
-    if [ -n "$TARGETARCH" ]; then \
-        OS_ARCH="$TARGETARCH"; \
-    else \
-        OS_ARCH=$(uname -m); \
-    fi; \
-    \
-    # Map arch
-    case "$OS_ARCH" in \
-        amd64|x86_64) \
-            OPENCODE_ARCH="x64" ;; \
-        arm64|aarch64) \
-            OPENCODE_ARCH="arm64" ;; \
-        *) \
-            echo "ERROR: Unsupported architecture: $OS_ARCH."; \
-            exit 1 ;; \
-    esac; \
-    \
-    # Install
-    OPENCODE_URL="https://github.com/anomalyco/opencode/releases/download/v${OPENCODE_VERSION}/opencode-linux-${OPENCODE_ARCH}.tar.gz"; \
-    OPENCODE_BINARY="opencode"; \
-    OPENCODE_TMP_DIR="$(mktemp -d)"; \
-    echo "Installing OpenCode for $OS_ARCH (Target: $OPENCODE_ARCH) from $OPENCODE_URL"; \
-    curl -fsSL "$OPENCODE_URL" -o "$OPENCODE_TMP_DIR/opencode.tar.gz" \
-    && tar -xzf "$OPENCODE_TMP_DIR/opencode.tar.gz" -C "$OPENCODE_TMP_DIR" \
-    && install -m 0755 "$OPENCODE_TMP_DIR/$OPENCODE_BINARY" "$OPENCODE_INSTALL_PATH" \
-    && rm -rf "$OPENCODE_TMP_DIR"
-
 # Install mise
 ARG MISE_VERSION=2026.4.18
 ENV MISE_INSTALL_PATH=/usr/local/bin/mise
@@ -163,12 +96,18 @@ RUN if grep -q '^plugins=(' /root/.zshrc; then \
 # Install Bun
 ARG BUN_VERSION=1.3.11
 RUN mise use -g bun@"$BUN_VERSION"
+# Install Codex
+ARG CODEX_VERSION=0.122.0
+RUN mise use -g codex@"$CODEX_VERSION"
 # Install Go
 ARG GO_VERSION=1.25.8
 RUN mise use -g go@"$GO_VERSION"
 # Install Node
 ARG NODE_VERSION=22.22.2
 RUN mise use -g node@"$NODE_VERSION"
+# Install OpenCode
+ARG OPENCODE_VERSION=1.14.28
+RUN mise use -g opencode@"$OPENCODE_VERSION"
 # Install Python
 ARG PYTHON_VERSION=3.12.13
 RUN mise use -g python@"$PYTHON_VERSION"
