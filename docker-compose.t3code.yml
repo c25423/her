@@ -2,13 +2,8 @@ services:
   her:
     image: ghcr.io/c25423/her:latest
     container_name: her
-    command:
-      - opencode
-      - web
-      - --hostname
-      - 0.0.0.0
-      - --port
-      - "4096"
+    entrypoint: ["zsh", "-c"]
+    command: ["bunx t3"]
     ports:
       - 3773:3773 # T3 Code
       - 4096:4096 # OpenCode
