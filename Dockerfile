@@ -75,7 +75,7 @@ RUN set -ex; \
     && rm -rf "$CODEX_TMP_DIR"
 
 # Install OpenCode
-ARG OPENCODE_VERSION=1.14.20
+ARG OPENCODE_VERSION=1.14.28
 ARG OPENCODE_INSTALL_PATH=/usr/local/bin/opencode
 RUN set -ex; \
     # Determine arch
