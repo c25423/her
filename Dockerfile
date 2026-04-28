@@ -151,6 +151,7 @@ RUN set -eux; \
     if ! grep -qxF 'eval "$(mise activate zsh)"' /root/.zshrc; then \
         printf '%s\n' 'eval "$(mise activate zsh)"' >> /root/.zshrc; \
     fi
+ENV PATH="/root/.local/share/mise/shims:${PATH}"
 # https://mise.jdx.dev/installing-mise.html#autocompletion
 RUN if grep -q '^plugins=(' /root/.zshrc; then \
       grep -qE '^plugins=\(.*\bmise\b.*\)' /root/.zshrc || \
