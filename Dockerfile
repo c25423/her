@@ -163,23 +163,21 @@ RUN if grep -q '^plugins=(' /root/.zshrc; then \
 # Install Bun
 ARG BUN_VERSION=1.3.11
 RUN mise use -g bun@"$BUN_VERSION"
-
 # Install Go
 ARG GO_VERSION=1.25.8
 RUN mise use -g go@"$GO_VERSION"
-
 # Install Node
 ARG NODE_VERSION=22.22.2
 RUN mise use -g node@"$NODE_VERSION"
-
 # Install Python
 ARG PYTHON_VERSION=3.12.13
 RUN mise use -g python@"$PYTHON_VERSION"
-
 # Install Ruby
 ARG RUBY_VERSION=3.4.9
 RUN mise settings ruby.compile=false && mise use -g ruby@"$RUBY_VERSION"
-
+# Install usage
+ARG USAGE_VERSION=3.2.1
+RUN mise use -g usage@"$USAGE_VERSION"
 # Install uv
 ARG UV_VERSION=0.11.7
 RUN mise use -g uv@"$UV_VERSION"
