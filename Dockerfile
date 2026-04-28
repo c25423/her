@@ -25,6 +25,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ripgrep \
     tree \
     yq \
+    # Required by Codex
+    bubblewrap \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Oh My Zsh
