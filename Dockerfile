@@ -129,6 +129,9 @@ RUN mise use -g usage@"$USAGE_VERSION"
 ARG UV_VERSION=0.11.7
 RUN mise use -g uv@"$UV_VERSION"
 
+# Install Compound Engineering to OpenCode
+RUN bunx @every-env/compound-plugin install compound-engineering --to opencode
+
 # # Install Hermes
 # ARG HERMES_REF=v2026.5.7
 # ARG HERMES_COMMIT=498bfc7bc12a937621b4215312049b1000726df3
