@@ -114,7 +114,7 @@ RUN mise use -g go@"$GO_VERSION"
 ARG NODE_VERSION=22.22.2
 RUN mise use -g node@"$NODE_VERSION"
 # Install OpenCode
-ARG OPENCODE_VERSION=1.14.41
+ARG OPENCODE_VERSION=1.50.0
 RUN mise use -g opencode@"$OPENCODE_VERSION"
 # Install Python
 ARG PYTHON_VERSION=3.12.13
