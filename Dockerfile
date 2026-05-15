@@ -27,12 +27,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     yq \
     # Required by Codex
     bubblewrap \
-    # Required by Hermes
-    ffmpeg \
-    gcc \
-    libffi-dev \
-    procps \
-    tini \
+    # # Required by Hermes
+    # ffmpeg \
+    # gcc \
+    # libffi-dev \
+    # procps \
+    # tini \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Oh My Zsh
