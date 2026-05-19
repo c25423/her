@@ -12,6 +12,8 @@ services:
     stdin_open: true
     tty: true
     volumes:
+      - ./claude/data:/root/.claude
+      - ./claude/.claude.json:/root/.claude.json
       - ./codex/data:/root/.codex
       - ./opencode/config:/root/.config/opencode
       - ./opencode/share:/root/.local/share/opencode
