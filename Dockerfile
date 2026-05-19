@@ -132,7 +132,13 @@ RUN mise use -g usage@"$USAGE_VERSION"
 ARG UV_VERSION=0.11.7
 RUN mise use -g uv@"$UV_VERSION"
 
-# Install Compound Engineering to OpenCode
+# Install Compound Engineering
+RUN claude plugin marketplace add EveryInc/compound-engineering-plugin
+RUN claude plugin install compound-engineering@compound-engineering-plugin --scope user
+RUN codex plugin marketplace add EveryInc/compound-engineering-plugin
+# Codex currently exposes marketplace registration through the CLI, but native plugin installation still requires opening Codex and installing via /plugins.
+# https://github.com/EveryInc/compound-engineering-plugin/blob/main/README.md
+RUN bunx @every-env/compound-plugin install compound-engineering --to codex
 RUN bunx @every-env/compound-plugin install compound-engineering --to opencode
 
 # # Install Hermes
