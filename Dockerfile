@@ -108,7 +108,7 @@ RUN mise use -g bun@"$BUN_VERSION"
 ARG CLAUDE_CODE_VERSION=2.1.144
 RUN mise use -g claude-code@"$CLAUDE_CODE_VERSION"
 # Install Codex
-ARG CODEX_VERSION=0.122.0
+ARG CODEX_VERSION=0.130.0
 RUN mise use -g codex@"$CODEX_VERSION"
 # Install Go
 ARG GO_VERSION=1.25.8
