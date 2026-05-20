@@ -13,10 +13,8 @@ services:
     tty: true
     volumes:
       - ./claude/.claude.json:/root/.claude.json
-      - ./claude/data/settings.json:/root/.claude/settings.json
-      - ./codex/data/auth.json:/root/.codex/auth.json
-      - ./codex/data/config.toml:/root/.codex/config.toml
-      - ./opencode/config/opencode.json:/root/.config/opencode/opencode.json
-      - ./opencode/share/auth.json:/root/.local/share/opencode/auth.json
-      - ./opencode/state/kv.json:/root/.local/state/opencode/kv.json
-      - ./opencode/state/model.json:/root/.local/state/opencode/model.json
+      - ./claude/data:/root/.claude
+      - ./codex/data:/root/.codex
+      - ./opencode/config:/root/.config/opencode
+      - ./opencode/share:/root/.local/share/opencode
+      - ./opencode/state:/root/.local/state/opencode
