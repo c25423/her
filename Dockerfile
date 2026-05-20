@@ -44,8 +44,8 @@ RUN set -eux; \
     rm -f /root/.zcompdump-*
 ENV SHELL=/bin/zsh
 
-# Back to bash
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+# Use zsh for subsequent RUN commands
+SHELL ["/bin/zsh", "-e", "-o", "pipefail", "-c"]
 
 # Install mise
 ARG MISE_VERSION=2026.4.18
