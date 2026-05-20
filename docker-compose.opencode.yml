@@ -2,7 +2,7 @@ services:
   her:
     image: ghcr.io/c25423/her:latest
     container_name: her
-    entrypoint: ["zsh", "-c"]
+    entrypoint: ["zsh", "-lc"]
     command: ["opencode web --hostname 127.0.0.1 --port 4096"]
     ports:
       - 3773:3773 # T3 Code
@@ -12,10 +12,11 @@ services:
     stdin_open: true
     tty: true
     volumes:
-      - ./claude/data:/root/.claude
       - ./claude/.claude.json:/root/.claude.json
-      - ./codex/data:/root/.codex
-      - ./opencode/config:/root/.config/opencode
-      - ./opencode/share:/root/.local/share/opencode
-      - ./opencode/state:/root/.local/state/opencode
-      - ./t3/data:/root/.t3
+      - ./claude/data/settings.json:/root/.claude/settings.json
+      - ./codex/data/auth.json:/root/.codex/auth.json
+      - ./codex/data/config.toml:/root/.codex/config.toml
+      - ./opencode/config/opencode.json:/root/.config/opencode/opencode.json
+      - ./opencode/share/auth.json:/root/.local/share/opencode/auth.json
+      - ./opencode/state/kv.json:/root/.local/state/opencode/kv.json
+      - ./opencode/state/model.json:/root/.local/state/opencode/model.json
