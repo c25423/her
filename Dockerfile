@@ -42,7 +42,7 @@ ENV SHELL=/bin/zsh
 SHELL ["/bin/zsh", "-e", "-o", "pipefail", "-c"]
 
 # Install mise
-ARG MISE_VERSION=2026.4.18
+ARG MISE_VERSION=2026.7.7
 ENV MISE_INSTALL_PATH=/usr/local/bin/mise
 RUN set -ex; \
     # Determine arch
