@@ -113,6 +113,9 @@ RUN mise use -g node@"$NODE_VERSION"
 # Install Python
 ARG PYTHON_VERSION=3.12.13
 RUN mise use -g python@"$PYTHON_VERSION"
+# Install q
+ARG Q_VERSION=0.19.12
+RUN mise use -g qdns@"$Q_VERSION"
 # Install Ruby
 ARG RUBY_VERSION=3.4.9
 RUN mise settings ruby.compile=false && mise use -g ruby@"$RUBY_VERSION"
