@@ -13,6 +13,3 @@ services:
       - ./claude/.claude.json:/root/.claude.json
       - ./claude/data:/root/.claude
       - ./codex/data:/root/.codex
-      - ./opencode/config:/root/.config/opencode
-      - ./opencode/share:/root/.local/share/opencode
-      - ./opencode/state:/root/.local/state/opencode
