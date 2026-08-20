@@ -96,7 +96,7 @@ RUN if grep -q '^plugins=(' /root/.zshrc; then \
     fi
 
 # Install Bun
-ARG BUN_VERSION=1.3.11
+ARG BUN_VERSION=1.3.14
 RUN mise use -g bun@"$BUN_VERSION"
 # Install Claude Code
 ARG CLAUDE_CODE_VERSION=2.1.233
