@@ -61,7 +61,7 @@ RUN set -eux; \
 ARG BUN_VERSION=1.3.14
 RUN mise use -g bun@"$BUN_VERSION"
 # Install Claude Code
-ARG CLAUDE_CODE_VERSION=2.1.233
+ARG CLAUDE_CODE_VERSION=2.1.263
 RUN mise use -g claude-code@"$CLAUDE_CODE_VERSION"
 # Install Codex
 ARG CODEX_VERSION=0.152.0
