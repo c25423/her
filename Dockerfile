@@ -84,9 +84,6 @@ RUN mise use -g python@"$PYTHON_VERSION"
 # Install Ruby
 ARG RUBY_VERSION=3.4.9
 RUN mise settings ruby.compile=false && mise use -g ruby@"$RUBY_VERSION"
-# Install usage
-ARG USAGE_VERSION=3.2.1
-RUN mise use -g usage@"$USAGE_VERSION"
 # Install uv
 ARG UV_VERSION=0.11.7
 RUN mise use -g uv@"$UV_VERSION"
