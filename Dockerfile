@@ -90,6 +90,9 @@ RUN mise settings ruby.compile=false && mise use -g ruby@"$RUBY_VERSION"
 # Install uv
 ARG UV_VERSION=0.11.7
 RUN mise use -g uv@"$UV_VERSION"
+# Install Yarn
+ARG YARN_VERSION=4.18.0
+RUN mise use -g yarn@"$YARN_VERSION"
 
 WORKDIR /root
 
