@@ -69,6 +69,9 @@ RUN mise use -g codex@"$CODEX_VERSION"
 # Install Go
 ARG GO_VERSION=1.25.8
 RUN mise use -g go@"$GO_VERSION"
+# Install Java
+ARG JAVA_VERSION=temurin-25.0.4+101.0.LTS
+RUN mise use -g java@"$JAVA_VERSION"
 # Install Node
 ARG NODE_VERSION=22.22.2
 RUN mise use -g node@"$NODE_VERSION"
