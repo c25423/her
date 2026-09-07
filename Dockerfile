@@ -27,6 +27,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     yq \
     # Required by Codex
     bubblewrap \
+    # Install q from the natesales APT repository
+    && mkdir -p /etc/apt/keyrings \
+    && curl -fsSL https://repo.natesales.net/apt/gpg.key -o /tmp/natesales.key \
+    && gpg --dearmor -o /etc/apt/keyrings/natesales.gpg /tmp/natesales.key \
+    && rm /tmp/natesales.key \
+    && echo "deb [signed-by=/etc/apt/keyrings/natesales.gpg] https://repo.natesales.net/apt * *" > /etc/apt/sources.list.d/natesales.list \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends q \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Oh My Zsh
@@ -116,9 +124,6 @@ RUN mise use -g pi@"$PI_VERSION"
 # Install Python
 ARG PYTHON_VERSION=3.12.13
 RUN mise use -g python@"$PYTHON_VERSION"
-# Install q
-ARG Q_VERSION=0.19.12
-RUN mise use -g qdns@"$Q_VERSION"
 # Install Ruby
 ARG RUBY_VERSION=3.4.9
 RUN mise settings ruby.compile=false && mise use -g ruby@"$RUBY_VERSION"
