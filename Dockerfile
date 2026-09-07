@@ -53,33 +53,13 @@ ENV SHELL=/bin/zsh
 # Use zsh for subsequent RUN commands
 SHELL ["/bin/zsh", "-e", "-o", "pipefail", "-c"]
 
-# Configure mise
-# https://mise.jdx.dev/dev-tools/shims.html#how-to-add-mise-shims-to-path
 RUN set -eux; \
-    # bash
-    touch /root/.bash_profile /root/.bashrc; \
-    if ! grep -qxF 'eval "$(mise activate bash --shims)"' /root/.bash_profile; then \
-        printf '%s\n' 'eval "$(mise activate bash --shims)"' >> /root/.bash_profile; \
-    fi; \
-    if ! grep -qxF 'eval "$(mise activate bash)"' /root/.bashrc; then \
-        printf '%s\n' 'eval "$(mise activate bash)"' >> /root/.bashrc; \
-    fi; \
-    # zsh
-    touch /root/.zprofile /root/.zshrc; \
-    if ! grep -qxF 'eval "$(mise activate zsh --shims)"' /root/.zprofile; then \
-        printf '%s\n' 'eval "$(mise activate zsh --shims)"' >> /root/.zprofile; \
-    fi; \
-    if ! grep -qxF 'eval "$(mise activate zsh)"' /root/.zshrc; then \
-        printf '%s\n' 'eval "$(mise activate zsh)"' >> /root/.zshrc; \
-    fi
-ENV PATH="/root/.local/share/mise/shims:${PATH}"
-# https://mise.jdx.dev/installing-mise.html#autocompletion
-RUN if grep -q '^plugins=(' /root/.zshrc; then \
-      grep -qE '^plugins=\(.*\bmise\b.*\)' /root/.zshrc || \
-      sed -i 's/^plugins=(\(.*\))/plugins=(\1 mise)/' /root/.zshrc; \
-    else \
-      printf '\nplugins=(mise)\n' >> /root/.zshrc; \
-    fi
+    # Setup mise autocompletion https://mise.jdx.dev/getting-started.html#autocompletion
+    mise completion bash --install; \
+    mise completion zsh --install; \
+    # Add mise shims to path https://mise.jdx.dev/dev-tools/shims.html#how-to-add-mise-shims-to-path
+    echo 'eval "$(mise activate bash)"' >> /root/.profile; \
+    echo 'eval "$(mise activate zsh)"' >> /root/.zprofile
 
 # Install Bun
 ARG BUN_VERSION=1.3.14
