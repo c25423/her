@@ -72,6 +72,9 @@ RUN mise use -g go@"$GO_VERSION"
 # Install Node
 ARG NODE_VERSION=22.22.2
 RUN mise use -g node@"$NODE_VERSION"
+# Install Nub
+ARG NUB_VERSION=0.8.3
+RUN mise use -g nub@"$NUB_VERSION"
 # Install pi
 ARG PI_VERSION=0.84.2
 RUN mise use -g pi@"$PI_VERSION"
