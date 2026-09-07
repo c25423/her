@@ -1,7 +1,5 @@
 FROM debian:13.4
 
-ARG TARGETARCH
-
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -35,6 +33,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && echo "deb [signed-by=/etc/apt/keyrings/natesales.gpg] https://repo.natesales.net/apt * *" > /etc/apt/sources.list.d/natesales.list \
     && apt-get update \
     && apt-get install -y --no-install-recommends q \
+    # Install mise from the mise repository enabled with extrepo
+    && apt-get install -y --no-install-recommends extrepo \
+    && extrepo enable mise \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends mise \
+    # Cleanup
     && rm -rf /var/lib/apt/lists/*
 
 # Install Oh My Zsh
@@ -49,33 +53,7 @@ ENV SHELL=/bin/zsh
 # Use zsh for subsequent RUN commands
 SHELL ["/bin/zsh", "-e", "-o", "pipefail", "-c"]
 
-# Install mise
-ARG MISE_VERSION=2026.7.7
-ENV MISE_INSTALL_PATH=/usr/local/bin/mise
-RUN set -ex; \
-    # Determine arch
-    if [ -n "$TARGETARCH" ]; then \
-        OS_ARCH="$TARGETARCH"; \
-    else \
-        OS_ARCH=$(uname -m); \
-    fi; \
-    # Map arch
-    case "$OS_ARCH" in \
-        amd64|x86_64) \
-            MISE_ARCH="x64" ;; \
-        arm64|aarch64) \
-            MISE_ARCH="arm64" ;; \
-        *) \
-            echo "ERROR: Unsupported architecture: $OS_ARCH."; \
-            exit 1 ;; \
-    esac; \
-    # Install
-    MISE_URL="https://github.com/jdx/mise/releases/download/v${MISE_VERSION}/mise-v${MISE_VERSION}-linux-${MISE_ARCH}"; \
-    MISE_TMP_DIR="$(mktemp -d)"; \
-    echo "Installing mise for $OS_ARCH (Target: $MISE_ARCH) from $MISE_URL"; \
-    curl -fsSL "$MISE_URL" -o "$MISE_TMP_DIR/mise"; \
-    install -m 0755 "$MISE_TMP_DIR/mise" "$MISE_INSTALL_PATH"; \
-    rm -rf "$MISE_TMP_DIR"
+# Configure mise
 # https://mise.jdx.dev/dev-tools/shims.html#how-to-add-mise-shims-to-path
 RUN set -eux; \
     # bash
