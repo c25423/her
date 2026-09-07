@@ -79,7 +79,7 @@ RUN mise use -g node@"$NODE_VERSION"
 ARG NUB_VERSION=0.8.3
 RUN mise use -g nub@"$NUB_VERSION"
 # Install pi
-ARG PI_VERSION=0.84.2
+ARG PI_VERSION=0.85.1
 RUN mise use -g pi@"$PI_VERSION"
 # Install pnpm
 ARG PNPM_VERSION=12.3.4
