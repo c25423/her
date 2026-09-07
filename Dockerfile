@@ -91,7 +91,7 @@ RUN mise use -g python@"$PYTHON_VERSION"
 ARG RUBY_VERSION=3.4.9
 RUN mise settings ruby.compile=false && mise use -g ruby@"$RUBY_VERSION"
 # Install uv
-ARG UV_VERSION=0.11.7
+ARG UV_VERSION=0.12.10
 RUN mise use -g uv@"$UV_VERSION"
 # Install Yarn
 ARG YARN_VERSION=4.18.0
