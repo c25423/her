@@ -3,28 +3,24 @@ FROM debian:13.4
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    # Shell
-    zsh \
-    # Essentials
+    bubblewrap \
     build-essential \
     ca-certificates \
     curl \
+    dnsutils \
     git \
     gnupg \
-    openssh-client \
-    sudo \
-    wget \
-    # Utils
-    dnsutils \
-    lsof \
     jq \
     just \
+    lsof \
+    openssh-client \
     openssl \
     ripgrep \
+    sudo \
     tree \
+    wget \
     yq \
-    # Required by Codex
-    bubblewrap \
+    zsh \
     # Install q from the natesales APT repository
     && mkdir -p /etc/apt/keyrings \
     && curl -fsSL https://repo.natesales.net/apt/gpg.key -o /tmp/natesales.key \
