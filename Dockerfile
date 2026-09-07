@@ -78,6 +78,9 @@ RUN mise use -g nub@"$NUB_VERSION"
 # Install pi
 ARG PI_VERSION=0.84.2
 RUN mise use -g pi@"$PI_VERSION"
+# Install pnpm
+ARG PNPM_VERSION=12.3.4
+RUN mise use -g pnpm@"$PNPM_VERSION"
 # Install Python
 ARG PYTHON_VERSION=3.12.13
 RUN mise use -g python@"$PYTHON_VERSION"
