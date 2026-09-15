@@ -55,7 +55,9 @@ RUN set -eux; \
     mise completion zsh --install; \
     # Add mise shims to path https://mise.jdx.dev/dev-tools/shims.html#how-to-add-mise-shims-to-path
     echo 'eval "$(mise activate bash)"' >> /root/.profile; \
-    echo 'eval "$(mise activate zsh)"' >> /root/.zprofile
+    echo 'eval "$(mise activate zsh)"' >> /root/.zprofile; \
+    echo 'eval "$(mise activate bash)"' >> ~/.bashrc; \
+    echo 'eval "$(mise activate zsh)"' >> ~/.zshrc
 
 # Install Bun
 ARG BUN_VERSION=1.3.14
