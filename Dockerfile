@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     lsof \
     openssh-client \
     openssl \
+    procps \
     ripgrep \
     sudo \
     tree \
