@@ -72,6 +72,8 @@ RUN mise use -g claude-code@"$CLAUDE_CODE_VERSION"
 # Install Codex
 ARG CODEX_VERSION=0.160.1
 RUN mise use -g codex@"$CODEX_VERSION"
+RUN mise exec -- codex plugin marketplace add DietrichGebert/ponytail && \
+    mise exec -- codex plugin add ponytail@ponytail
 # Install Go
 ARG GO_VERSION=1.25.8
 RUN mise use -g go@"$GO_VERSION"
