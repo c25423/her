@@ -5,7 +5,7 @@ IMAGE="${HER_IMAGE:-ghcr.io/c25423/her:latest}"
 HER_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Create bind sources so docker doesn't auto-create them root-owned
-mkdir -p "$HER_ROOT/claude/data" "$HER_ROOT/codex/data" "$HER_ROOT/pi/data"
+mkdir -p "$HER_ROOT/claude/data" "$HER_ROOT/codex/data" "$HER_ROOT/gemini/data" "$HER_ROOT/pi/data"
 [ -f "$HER_ROOT/claude/.claude.json" ] || touch "$HER_ROOT/claude/.claude.json"
 
 # Set container name to her-{folder}-{timestamp YYYYMMDDHHmmss}
@@ -27,5 +27,6 @@ exec docker run -it --rm \
     -v "$HER_ROOT/claude/.claude.json:/root/.claude.json" \
     -v "$HER_ROOT/claude/data:/root/.claude" \
     -v "$HER_ROOT/codex/data:/root/.codex" \
+    -v "$HER_ROOT/gemini/data:/root/.gemini" \
     -v "$HER_ROOT/pi/data:/root/.pi" \
     "$IMAGE" "$@"
