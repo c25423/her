@@ -16,7 +16,7 @@ name="her-${folder}-$(date +%Y%m%d%H%M%S)"
 if [ $# -eq 0 ]; then
     set -- zsh
 else
-    set -- zsh -c "$*"
+    set -- zsh -ic 'exec "$@"' -- "$@"
 fi
 
 exec docker run -it --rm \
