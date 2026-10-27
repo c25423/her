@@ -61,7 +61,7 @@ RUN set -eux; \
     echo 'eval "$(mise activate zsh)"' >> ~/.zshrc
 
 # Install agy
-ARG AGY_VERSION=1.3.3
+ARG AGY_VERSION=1.4.7
 RUN mise use -g agy@"$AGY_VERSION"
 # Install Bun
 ARG BUN_VERSION=1.3.14
